@@ -1,0 +1,12 @@
+.footer-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 50px;
+  background-color: var(--secondary-color);
+}
+.footer-content ul {
+  list-style: none;
+}
+.footer-content ul li {
+  text-decoration: none;
+}
