@@ -3,6 +3,17 @@
   justify-content: space-evenly;
   align-items: center;
   height: 5rem;
+  position: sticky;
+  top: 10px;
+  background-color: white;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.nav-container.scrolled {
+  border-radius: 50px;
+  background-color: var(--primary-color);
+  margin: 0px 50px;
 }
 
 .nav-container p {

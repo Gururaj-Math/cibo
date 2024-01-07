@@ -1,6 +1,7 @@
 import deliverBoySvg from "../assets/deliverBoy.svg";
 import courierSvg from "../assets/courier.svg";
 import "../styles/home.css";
+import CustomButton from "../components/customButton";
 
 function Home() {
   return (
@@ -13,7 +14,7 @@ function Home() {
             illum dolores a nulla unde deserunt quis nesciunt odio ducimus
             magni!
           </p>
-          <button className="custom-btn">Get Started</button>
+          <CustomButton text="Get Started" />
         </div>
         <img src={deliverBoySvg} alt="Deliver Boy" className="banner-image" />
       </div>
@@ -25,7 +26,7 @@ function Home() {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus,
             iusto.
           </p>
-          <button className="custom-btn">Get Started</button>
+          <CustomButton text="Get Started" />
         </div>
       </div>
       <div className="banner-content">
@@ -35,7 +36,7 @@ function Home() {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus,
             iusto.
           </p>
-          <button className="custom-btn">Get Started</button>
+          <CustomButton text="Get Started" />
         </div>
         <img src={deliverBoySvg} alt="Deliver Boy" className="banner-image" />
       </div>
