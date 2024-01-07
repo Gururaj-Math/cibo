@@ -11,9 +11,7 @@ function Navbar() {
         <Link to="/services">Services</Link>
         <Link to="/contact">Contact us</Link>
       </div>
-      <div className="user">
-        <p>Username</p>
-      </div>
+      <button className="custom-btn">Username</button>
     </div>
   );
 }

@@ -9,3 +9,12 @@
   padding: 0;
   font-family: "Poppins", sans-serif;
 }
+
+.custom-btn {
+  background-color: var(--primary-color);
+  padding: 7px 10px;
+  border-radius: 30px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
