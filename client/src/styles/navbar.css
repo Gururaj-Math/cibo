@@ -16,6 +16,11 @@
   margin: 0px 50px;
 }
 
+.nav-container.scrolled p,
+.nav-container.scrolled .item-list a {
+  color: white;
+}
+
 .nav-container p {
   font-size: 1.5rem;
 }

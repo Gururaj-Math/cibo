@@ -28,7 +28,7 @@ function Navbar() {
         <Link to="/services">Services</Link>
         <Link to="/contact">Contact us</Link>
       </div>
-      <CustomButton text="Get Started" />
+      <CustomButton text="Get Started" scrolled={scrolled} />
     </div>
   );
 }
