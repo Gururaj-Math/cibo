@@ -2,11 +2,43 @@
   display: flex;
   justify-content: space-evenly;
   padding: 50px;
-  background-color: var(--secondary-color);
+  background-color: #ffe59a;
+  color: #333;
 }
+
+.footer-content {
+  max-width: 300px;
+}
+
+.footer-content h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.footer-content p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
 .footer-content ul {
   list-style: none;
+  padding: 0;
 }
+
 .footer-content ul li {
-  text-decoration: none;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+.footer-content ul li i {
+  margin-right: 8px;
+}
+.footer-content ul li:hover {
+  text-decoration: underline;
+}
+.social {
+  font-size: 1.2rem;
 }
