@@ -1,5 +1,7 @@
 import deliverBoySvg from "../assets/deliverBoy.svg";
 import courierSvg from "../assets/courier.svg";
+import trackDeliverySvg from "../assets/trackDelivery.svg";
+import orderSvg from "../assets/order.svg";
 import "../styles/home.css";
 import CustomButton from "../components/customButton";
 
@@ -52,7 +54,7 @@ function Home() {
           buttonText="Get Started"
           imageSrc={deliverBoySvg}
           altText="Deliver Boy"
-          imageOnLeft={true}
+          imageOnLeft={false}
         />
 
         <BannerItem
@@ -61,37 +63,45 @@ function Home() {
           buttonText="Get Started"
           imageSrc={courierSvg}
           altText="Courier"
-          imageOnLeft={false}
+          imageOnLeft={true}
         />
 
         <BannerItem
           title="Your Safety Is Important"
           description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, iusto."
           buttonText="Get Started"
-          imageSrc={deliverBoySvg}
+          imageSrc={orderSvg}
           altText="Deliver Boy"
-          imageOnLeft={true}
+          imageOnLeft={false}
         />
       </div>
       <div className="services-container">
         <h1>Some Services we offer</h1>
         <div className="card-layout">
           <ServiceCard
-            title="Find your product"
+            title="Find your food"
             imageSrc={deliverBoySvg}
             description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, accusantium?"
           />
           <ServiceCard
-            title="Find your product"
+            title="Order your food"
             imageSrc={deliverBoySvg}
             description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, accusantium?"
           />
           <ServiceCard
-            title="Find your product"
+            title="food Received"
             imageSrc={deliverBoySvg}
             description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, accusantium?"
           />
         </div>
+        <BannerItem
+          title="Watch your delivery at any time"
+          description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, iusto."
+          buttonText="Learn More"
+          imageSrc={trackDeliverySvg}
+          altText="Courier"
+          imageOnLeft={true}
+        />
       </div>
     </div>
   );
