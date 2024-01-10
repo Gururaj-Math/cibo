@@ -9,7 +9,7 @@ import {
 import Home from "./pages/home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
-import Services from "./pages/services";
+import OrderPage from "./pages/OrderPage";
 import Footer from "./components/footer";
 import Login from "./pages/login";
 
@@ -31,7 +31,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/about" Component={About} />
-        <Route path="/services" Component={Services} />
+        <Route path="/orderNow" Component={OrderPage} />
         <Route path="/contact" Component={Contact} />
         <Route path="/login" Component={Login} />
       </Routes>

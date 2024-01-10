@@ -24,8 +24,8 @@ function Navbar() {
       <p>Cibo</p>
       <div className="item-list">
         <Link to="/">Home</Link>
+        <Link to="/orderNow">Order Now</Link>
         <Link to="/about">About us</Link>
-        <Link to="/services">Services</Link>
         <Link to="/contact">Contact us</Link>
       </div>
       <CustomButton text="Get Started" scrolled={scrolled} />

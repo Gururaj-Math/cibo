@@ -1,0 +1,34 @@
+.OrderPage {
+  padding: 20px;
+}
+.featured {
+  display: flex;
+  flex-direction: column;
+  gap: 4;
+  height: 20vw;
+}
+
+.featured-items {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.featured-items::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+}
+
+.featured-items::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 25px;
+}
+
+.featured-items img {
+  width: auto;
+  max-height: 18vw;
+  object-fit: cover;
+  border-radius: 25px;
+  cursor: pointer;
+}
