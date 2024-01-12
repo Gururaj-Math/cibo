@@ -12,6 +12,7 @@ import Contact from "./pages/contact";
 import OrderPage from "./pages/OrderPage";
 import Footer from "./components/footer";
 import Login from "./pages/login";
+import Cart from "./pages/cart";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function AppRoutes() {
         <Route path="/about" Component={About} />
         <Route path="/orderNow" Component={OrderPage} />
         <Route path="/contact" Component={Contact} />
+        <Route path="/cart" Component={Cart} />
         <Route path="/login" Component={Login} />
       </Routes>
       {!isLoginPage && <Footer />}

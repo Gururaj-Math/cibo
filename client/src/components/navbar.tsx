@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../styles/navbar.css";
 import CustomButton from "./customButton";
+import cartSvg from "../assets/cart.svg";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,7 +29,12 @@ function Navbar() {
         <Link to="/about">About us</Link>
         <Link to="/contact">Contact us</Link>
       </div>
-      <CustomButton text="Get Started" scrolled={scrolled} />
+      <div className="user-cart">
+        <CustomButton text="Username" scrolled={scrolled} />
+        <Link to="/cart">
+          <img src={cartSvg} className="cart-svg" />
+        </Link>
+      </div>
     </div>
   );
 }
