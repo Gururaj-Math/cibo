@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CustomButton from "../components/customButton";
 import "../styles/orderPage.css";
+import starSvg from "../assets/star.svg";
 
 const FoodItem = (props: {
   imageUrl: string;
@@ -11,7 +12,12 @@ const FoodItem = (props: {
   return (
     <div className="food-item">
       <img src={props.imageUrl} alt={props.title} />
-      <h2>{props.title}</h2>
+      <div className="food-title">
+        <h2>{props.title}</h2>
+        <div className="rating">
+          <img src={starSvg} /> {4.3}
+        </div>
+      </div>
       <p>{props.description}</p>
       <div className="addToCart">
         <p>{props.price}Rs</p>
