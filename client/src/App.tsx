@@ -11,8 +11,11 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 import OrderPage from "./pages/OrderPage";
 import Footer from "./components/footer";
-import Login from "./pages/login";
+import Login from "./pages/auth/forms/login.tsx";
+import Register from "./pages/auth/forms/register.tsx";
 import Cart from "./pages/cart";
+import authLayout from "./pages/auth/authLayout.tsx";
+import privateRoute from "./components/PrivateRoute.tsx";
 
 function App() {
   return (
@@ -25,19 +28,25 @@ function App() {
 function AppRoutes() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
+  const isRegisterPage = location.pathname === "/register";
 
   return (
     <>
-      {!isLoginPage && <Navbar />}
+      {!isLoginPage && !isRegisterPage && <Navbar />}
       <Routes>
-        <Route path="/" Component={Home} />
-        <Route path="/about" Component={About} />
-        <Route path="/orderNow" Component={OrderPage} />
-        <Route path="/contact" Component={Contact} />
-        <Route path="/cart" Component={Cart} />
-        <Route path="/login" Component={Login} />
+        <Route Component={authLayout}>
+          <Route path="/login" Component={Login} />
+          <Route path="/register" Component={Register} />
+        </Route>
+        <Route Component={privateRoute}>
+          <Route path="/" Component={Home} />
+          <Route path="/about" Component={About} />
+          <Route path="/orderNow" Component={OrderPage} />
+          <Route path="/contact" Component={Contact} />
+          <Route path="/cart" Component={Cart} />
+        </Route>
       </Routes>
-      {!isLoginPage && <Footer />}
+      {!isLoginPage && !isRegisterPage && <Footer />}
     </>
   );
 }
