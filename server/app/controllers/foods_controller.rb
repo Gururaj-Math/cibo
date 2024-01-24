@@ -40,6 +40,7 @@ class FoodsController < ApplicationController
   end
 
   def food_params
-    params.require(:food).permit(:name, :price, :image, :description, :category, :seller, :offer, rating: [])
+    # Permitting :seller and :category as objects of their respective types
+    params.require(:food).permit(:name, :price, :image, :description, :offer, rating: [], seller: {}, category: {})
   end
 end
