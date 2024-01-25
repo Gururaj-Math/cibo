@@ -12,6 +12,8 @@ class User
   field :accessToken, type: String
   field :refreshToken, type: String
   field :orders, type: Array, default: []
+  field :favorites, type: Array, default: []
+  field :cart, type: Array, default: []
 
   has_secure_password
 
