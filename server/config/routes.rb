@@ -4,4 +4,7 @@ Rails.application.routes.draw do
 
   # Adding resources for FoodsController
   resources :foods
+  resources :categories
+  resources :seller
+
 end

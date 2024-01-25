@@ -40,7 +40,22 @@ class FoodsController < ApplicationController
   end
 
   def food_params
-    # Permitting :seller and :category as objects of their respective types
-    params.require(:food).permit(:name, :price, :image, :description, :offer, rating: [], seller: {}, category: {})
+    permitted_params = params.require(:food).permit(:name, :price, :image, :description, :offer, rating: [])
+
+    # Check if category_id exists in Category model
+    if params[:food][:category] && params[:food][:category][:id]
+      category_id = params[:food][:category][:id]
+      category = Category.find_by(id: category_id)
+      permitted_params[:category_id] = category.id if category
+    end
+
+    # Check if seller_id exists in Seller model
+    if params[:food][:seller] && params[:food][:seller][:id]
+      seller_id = params[:food][:seller][:id]
+      seller = Seller.find_by(id: seller_id)
+      permitted_params[:seller_id] = seller.id if seller
+    end
+
+    permitted_params
   end
 end
