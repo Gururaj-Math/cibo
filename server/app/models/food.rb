@@ -9,6 +9,7 @@ class Food
   field :description, type: String
   field :rating, type: Array, default: []
   field :offer, type: String
+  field :featured, type: Boolean
 
   belongs_to :seller, class_name: 'Seller', foreign_key: 'seller_id'
   belongs_to :category, class_name: 'Category', foreign_key: 'category_id'
