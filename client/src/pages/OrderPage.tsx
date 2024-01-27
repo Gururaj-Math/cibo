@@ -44,17 +44,40 @@ const FoodItem = (props: {
 function OrderPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [foodItems, setFoodItems] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [filteredFoodItems, setFilteredFoodItems] = useState([]);
 
   useEffect(() => {
     const fetchItems = async () => {
       await axios.get(`${API_URI}/foods`).then((res) => {
         setFoodItems(res.data);
+        setFilteredFoodItems(res.data);
       });
     };
     fetchItems();
   }, []);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      await axios.get(`${API_URI}/categories`).then((res) => {
+        setCategories(res.data);
+      });
+    };
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    setFilteredFoodItems(
+      selectedCategory === "All"
+        ? foodItems
+        : foodItems.filter(
+            (item: any) => item.category_id.$oid === selectedCategory,
+          ),
+    );
+  }, [selectedCategory, foodItems]);
+
   const handleCategoryChange = (category: string) => {
+    console.log("items", filteredFoodItems);
     setSelectedCategory(category);
   };
 
@@ -79,15 +102,17 @@ function OrderPage() {
             onChange={(e) => handleCategoryChange(e.target.value)}
           >
             <option value="All">All Categories</option>
-            <option value="Category1">Category 1</option>
-            <option value="Category2">Category 2</option>
-            <option value="Category2">Category 3</option>
+            {categories.map((category: any) => (
+              <option key={category.id.$oid} value={category.id.$oid}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="items-container">
-          {foodItems.map((item: any) => (
+          {filteredFoodItems.map((item: any) => (
             <FoodItem
-              key={item.id}
+              key={item.id.$oid}
               imageUrl={item.image}
               title={item.name}
               description={item.description}
