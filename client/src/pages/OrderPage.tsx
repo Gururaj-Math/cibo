@@ -4,6 +4,7 @@ import "../styles/orderPage.css";
 import starSvg from "../assets/star.svg";
 import API_URI from "../constant";
 import axios from "axios";
+import { Carousel } from "antd";
 
 const FoodItem = (props: {
   imageUrl: string;
@@ -85,14 +86,31 @@ function OrderPage() {
     <div className="OrderPage">
       <div className="featured">
         <h1>Featured Items</h1>
-        <div className="featured-items">
-          <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-          <img src="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=600" />
-          <img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=600" />
-          <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=600" />
-          <img src="https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg?auto=compress&cs=tinysrgb&w=600" />
-          <img src="https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=600" />
-        </div>
+        <Carousel dots={false} slidesToShow={4} autoplay={true}>
+          {foodItems
+            .filter((item: any) => item.featured === true)
+            .map((featuredItem: any) => (
+              <div
+                key={featuredItem.id.$oid}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={featuredItem.image}
+                  alt={featuredItem.name}
+                  style={{
+                    width: "100%",
+                    height: "300px",
+                    borderRadius: "25px",
+                    padding: "10px",
+                  }}
+                />
+              </div>
+            ))}
+        </Carousel>
       </div>
       <div className="order-items">
         <div className="category-dropdown">
