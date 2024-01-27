@@ -36,21 +36,21 @@ function Navbar() {
   const userName = currentUser?.data?.name || "";
 
   return (
-      <div className={`nav-container ${scrolled ? "scrolled" : ""}`}>
-        <p>Cibo</p>
-        <div className="item-list">
-          <Link to="/">Home</Link>
-          <Link to="/orderNow">Order Now</Link>
-          <Link to="/about">About us</Link>
-          <Link to="/contact">Contact us</Link>
-        </div>
-        <div className="user-cart">
-          <CustomButton text={userName} scrolled={scrolled} />
-          <Link to="/cart">
-            <img src={cartSvg} className="cart-svg" alt="Cart" />
-          </Link>
-        </div>
+    <div className={`nav-container ${scrolled ? "scrolled" : ""}`}>
+      <p>Cibo</p>
+      <div className="item-list">
+        <Link to="/">Home</Link>
+        <Link to="/orderNow">Order Now</Link>
+        <Link to="/about">About us</Link>
+        <Link to="/contact">Contact us</Link>
       </div>
+      <div className="user-cart">
+        <CustomButton text={userName} scrolled={scrolled} />
+        <Link to="/cart">
+          <img src={cartSvg} className="cart-svg" alt="Cart" />
+        </Link>
+      </div>
+    </div>
   );
 }
 

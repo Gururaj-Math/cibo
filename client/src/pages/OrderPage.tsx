@@ -1,24 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../components/customButton";
 import "../styles/orderPage.css";
 import starSvg from "../assets/star.svg";
+import API_URI from "../constant";
+import axios from "axios";
 
 const FoodItem = (props: {
   imageUrl: string;
   title: string;
   description: string;
   price: number;
+  rating: number[];
+  offer: string;
 }) => {
+  const calculateAverageRating = (ratings: number[]) => {
+    if (ratings.length === 0) {
+      return 0;
+    }
+    const sum = ratings.reduce((total, rating) => total + rating, 0);
+    return sum / ratings.length;
+  };
+  const averageRating = calculateAverageRating(props.rating);
+
   return (
     <div className="food-item">
       <img src={props.imageUrl} alt={props.title} />
       <div className="food-title">
         <h2>{props.title}</h2>
         <div className="rating">
-          <img src={starSvg} /> {4.3}
+          <img src={starSvg} alt="star" /> {averageRating}
         </div>
       </div>
       <p>{props.description}</p>
+      <p className="offer">Offer: {props.offer}</p>
       <div className="addToCart">
         <p>{props.price}Rs</p>
         <CustomButton text="Add To Cart" />
@@ -29,6 +43,16 @@ const FoodItem = (props: {
 
 function OrderPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [foodItems, setFoodItems] = useState([]);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      await axios.get(`${API_URI}/foods`).then((res) => {
+        setFoodItems(res.data);
+      });
+    };
+    fetchItems();
+  }, []);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -61,30 +85,17 @@ function OrderPage() {
           </select>
         </div>
         <div className="items-container">
-          <FoodItem
-            imageUrl="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            title="Title Here"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, accusamus?"
-            price={200}
-          />
-          <FoodItem
-            imageUrl="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            title="Title Here"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, accusamus?"
-            price={200}
-          />
-          <FoodItem
-            imageUrl="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            title="Title Here"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, accusamus?"
-            price={200}
-          />
-          <FoodItem
-            imageUrl="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            title="Title Here"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, accusamus?"
-            price={200}
-          />
+          {foodItems.map((item: any) => (
+            <FoodItem
+              key={item.id}
+              imageUrl={item.image}
+              title={item.name}
+              description={item.description}
+              price={item.price}
+              rating={item.rating}
+              offer={item.offer}
+            />
+          ))}
         </div>
       </div>
     </div>
