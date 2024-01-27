@@ -35,13 +35,13 @@ const Login: React.FC = () => {
     try {
       dispatch(logInStart());
       const response = await axios.post(
-        `${API_URI}/api/v1/user/login`,
+        `${API_URI}/user/login`,
         formData,
       );
       dispatch(logInSuccess(response.data));
       setCookies("access_token", response.data.accessToken);
       console.log(response);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       dispatch(logInFailure(error));
     }

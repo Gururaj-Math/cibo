@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  post '/api/v1/user/register', to: 'users#register', defaults: { format: :json }
-  post '/api/v1/user/login', to: 'users#login', defaults: { format: :json }
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      post '/user/register', to: 'users#register'
+      post '/user/login', to: 'users#login'
 
-  # Adding resources for FoodsController
-  resources :foods
-  resources :categories
-  resources :seller
-
+      resources :foods
+      resources :categories
+      resources :sellers
+    end
+  end
 end

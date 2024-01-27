@@ -1,4 +1,4 @@
-class SellerController < ApplicationController
+class Api::V1::SellerController < ApplicationController
     before_action :set_seller, only: [:show, :update, :destroy]
   
     def index

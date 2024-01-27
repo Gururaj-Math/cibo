@@ -29,7 +29,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${API_URI}/api/v1/user/register`,
+        `${API_URI}/user/register`,
         formData,
       );
       console.log(response);
