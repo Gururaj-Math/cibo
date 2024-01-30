@@ -45,7 +45,9 @@ function Navbar() {
         <Link to="/contact">Contact us</Link>
       </div>
       <div className="user-cart">
-        <CustomButton text={userName} scrolled={scrolled} />
+        <Link to="/my-account">
+          <CustomButton text={userName} scrolled={scrolled} />
+        </Link>
         <Link to="/cart">
           <img src={cartSvg} className="cart-svg" alt="Cart" />
         </Link>

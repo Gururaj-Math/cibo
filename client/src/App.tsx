@@ -16,6 +16,7 @@ import Register from "./pages/auth/forms/register.tsx";
 import Cart from "./pages/cart";
 import authLayout from "./pages/auth/authLayout.tsx";
 import privateRoute from "./components/PrivateRoute.tsx";
+import MyAccount from "./pages/myAccount"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function AppRoutes() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/register";
+  const myAccountPage = location.pathname === "/my-account";
 
   return (
     <>
@@ -44,9 +46,10 @@ function AppRoutes() {
           <Route path="/orderNow" Component={OrderPage} />
           <Route path="/contact" Component={Contact} />
           <Route path="/cart" Component={Cart} />
+          <Route path="/my-account" Component={MyAccount} />
         </Route>
       </Routes>
-      {!isLoginPage && !isRegisterPage && <Footer />}
+      {!isLoginPage && !isRegisterPage && !myAccountPage && <Footer />}
     </>
   );
 }

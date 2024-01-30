@@ -4,6 +4,7 @@
   align-items: center;
   height: 5rem;
   position: sticky;
+  box-shadow: 0 5px 4px rgb(146 161 176 / 15%);
   top: 10px;
   background-color: white;
   z-index: 1000;
