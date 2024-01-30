@@ -18,6 +18,22 @@ class Api::V1::UsersController < ApplicationController
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end
+
+  def updateUser
+    @user = User.find_by(email: params[:email])
+
+    if @user
+      if @user.update(params.permit(:name, :email, :phone))
+        render json: { message: 'User updated successfully', user: @user }
+      else
+        render json: { message: 'Failed to update', errors: @user.errors.full_messages }, status: :unprocessable_entity
+      end
+    else
+      render json: { message: 'User not found' }, status: :not_found
+    end
+  end
+
+
   private
 
   def user_params
