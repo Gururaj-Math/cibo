@@ -14,13 +14,15 @@ const FoodItem = (props: {
   rating: number[];
   offer: string;
 }) => {
-  const calculateAverageRating = (ratings: number[]) => {
+  const calculateAverageRating = (ratings: number[]): number => {
     if (ratings.length === 0) {
       return 0;
     }
     const sum = ratings.reduce((total, rating) => total + rating, 0);
-    return sum / ratings.length;
+    const average = sum / ratings.length;
+    return parseFloat(average.toFixed(1));
   };
+
   const averageRating = calculateAverageRating(props.rating);
 
   return (

@@ -7,8 +7,9 @@
 .featured {
   display: flex;
   flex-direction: column;
-  gap: 4;
+  gap: 4px;
   height: 20vw;
+  margin: 20px 0 50px 0;
 }
 
 .featured-items {
