@@ -1,0 +1,25 @@
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100vh; /* Changed from % to vh for full height */
+  }
+  
+  .form-container {
+    flex-basis: 20%;
+  }
+  
+  .form-container h1 {
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  
+  .form-container input {
+    margin-bottom: 10px;
+  }
+  
+  .image-container {
+    flex-basis: 70%;
+    height: 40vw;
+  }
+  

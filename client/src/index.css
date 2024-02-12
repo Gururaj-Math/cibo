@@ -13,6 +13,14 @@
   letter-spacing: 1px;
 }
 
+.ant-btn-primary{
+  background: var(--primary-color);
+}
+
+.ant-btn-primary:hover{
+  background: var(--secondary-color) !important;
+}
+
 .custom-btn {
   background-color: var(--primary-color);
   padding: 7px 10px;
