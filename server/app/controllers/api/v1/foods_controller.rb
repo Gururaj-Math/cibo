@@ -33,6 +33,11 @@ class Api::V1::FoodsController < ApplicationController
     head :no_content
   end
 
+  def get_food_details
+    @food = Food.find(params[:id])
+    render json: @food
+  end
+
   def add_to_cart
     @food = Food.find(params[:id])
 

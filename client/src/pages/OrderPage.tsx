@@ -22,7 +22,7 @@ const FoodItem = (props: {
       await axios.post(`${API_URI}/foods/${props.foodId}/add_to_cart`, {
         user_id: props.userId,
       });
-
+      console.log(props.userId);
       message.success("Item added to cart successfully!");
     } catch (error) {
       message.error("Failed to add item to cart. Please try again later.");
@@ -66,7 +66,7 @@ function OrderPage() {
   const [categories, setCategories] = useState([]);
   const [filteredFoodItems, setFilteredFoodItems] = useState([]);
   const { currentUser } = useSelector((state: any) => state.user);
-
+ 
   useEffect(() => {
     const fetchItems = async () => {
       await axios.get(`${API_URI}/foods`).then((res) => {
