@@ -33,6 +33,27 @@ class Api::V1::FoodsController < ApplicationController
     head :no_content
   end
 
+  def add_to_cart
+    @food = Food.find(params[:id])
+
+    # Check if user is present
+    if params[:user_id].present?
+      user = User.find(params[:user_id])
+      if user.cart.include?(@food.id)
+        render json: { error: 'Food already exists in cart' }, status: :unprocessable_entity
+      else
+        user.cart << @food.id
+        if user.save
+          render json: { message: 'Food added to cart successfully' }
+        else
+          render json: user.errors, status: :unprocessable_entity
+        end
+      end
+    else
+      render json: { error: 'User not specified' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_food

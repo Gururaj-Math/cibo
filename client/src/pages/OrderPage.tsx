@@ -4,7 +4,8 @@ import "../styles/orderPage.css";
 import starSvg from "../assets/star.svg";
 import API_URI from "../constant";
 import axios from "axios";
-import { Carousel } from "antd";
+import { Carousel, message } from "antd";
+import { useSelector } from "react-redux";
 
 const FoodItem = (props: {
   imageUrl: string;
@@ -13,7 +14,22 @@ const FoodItem = (props: {
   price: number;
   rating: number[];
   offer: string;
+  foodId: string;
+  userId: string;
 }) => {
+  const handleAddToCart = async () => {
+    try {
+      await axios.post(`${API_URI}/foods/${props.foodId}/add_to_cart`, {
+        user_id: props.userId,
+      });
+
+      message.success("Item added to cart successfully!");
+    } catch (error) {
+      message.error("Failed to add item to cart. Please try again later.");
+      console.error("Error adding item to cart:", error);
+    }
+  };
+
   const calculateAverageRating = (ratings: number[]): number => {
     if (ratings.length === 0) {
       return 0;
@@ -38,7 +54,7 @@ const FoodItem = (props: {
       <p className="offer">Offer: {props.offer}</p>
       <div className="addToCart">
         <p>{props.price}Rs</p>
-        <CustomButton text="Add To Cart" />
+        <CustomButton text="Add To Cart" onClick={handleAddToCart} />
       </div>
     </div>
   );
@@ -49,6 +65,7 @@ function OrderPage() {
   const [foodItems, setFoodItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filteredFoodItems, setFilteredFoodItems] = useState([]);
+  const { currentUser } = useSelector((state: any) => state.user);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -80,7 +97,6 @@ function OrderPage() {
   }, [selectedCategory, foodItems]);
 
   const handleCategoryChange = (category: string) => {
-    console.log("items", filteredFoodItems);
     setSelectedCategory(category);
   };
 
@@ -139,6 +155,8 @@ function OrderPage() {
               price={item.price}
               rating={item.rating}
               offer={item.offer}
+              foodId={item.id.$oid}
+              userId={currentUser.data._id.$oid}
             />
           ))}
         </div>

@@ -77,7 +77,9 @@ const Login: React.FC = () => {
               onChange={handleInputChange}
             />
           </Form.Item>
-          <p>New user? <Link to="/register">Register Now!</Link></p>
+          <p>
+            New user? <Link to="/register">Register Now!</Link>
+          </p>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Login

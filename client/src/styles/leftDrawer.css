@@ -1,26 +1,26 @@
-.updateForm{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.updateForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .updateForm label {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-.updateForm input{
-    padding: 10px;
-    outline: none;
-    border: none;
-    font-size: 14px;
-    border-bottom: 2px solid var(--primary-color);
+.updateForm input {
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  border-bottom: 2px solid var(--primary-color);
 }
 
-.updateForm button{
-    padding: 8px 0;
-    outline: none;
-    border: none;
-    margin-top: 12px;
-    background-color: var(--primary-color);
-    cursor: pointer;
+.updateForm button {
+  padding: 8px 0;
+  outline: none;
+  border: none;
+  margin-top: 12px;
+  background-color: var(--primary-color);
+  cursor: pointer;
 }

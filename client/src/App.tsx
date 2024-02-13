@@ -16,7 +16,7 @@ import Register from "./pages/auth/forms/register.tsx";
 import Cart from "./pages/cart";
 import authLayout from "./pages/auth/authLayout.tsx";
 import privateRoute from "./components/PrivateRoute.tsx";
-import MyAccount from "./pages/myAccount"
+import MyAccount from "./pages/myAccount";
 
 function App() {
   return (

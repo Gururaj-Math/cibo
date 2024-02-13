@@ -5,7 +5,12 @@ Rails.application.routes.draw do
       post '/user/login', to: 'users#login'
       put '/user/update', to: 'users#updateUser'
 
-      resources :foods
+      resources :foods do
+        member do
+          post 'add_to_cart'
+        end
+      end
+
       resources :categories
       resources :sellers
     end
