@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post '/user/register', to: 'users#register'
       post '/user/login', to: 'users#login'
       put '/user/update', to: 'users#updateUser'
+      get '/user/cart', to: 'users#get_cart' 
 
       resources :foods do
         member do

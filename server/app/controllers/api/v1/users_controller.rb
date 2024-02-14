@@ -33,6 +33,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def get_cart
+    @user = User.find_by(email: params[:email])
+
+    if @user
+      render json: { cart: @user.cart }, status: :ok
+    else
+      render json: { message: 'User not found' }, status: :not_found
+    end
+  end
 
   private
 

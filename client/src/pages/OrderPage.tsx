@@ -22,7 +22,6 @@ const FoodItem = (props: {
       await axios.post(`${API_URI}/foods/${props.foodId}/add_to_cart`, {
         user_id: props.userId,
       });
-      console.log(props.userId);
       message.success("Item added to cart successfully!");
     } catch (error) {
       message.error("Failed to add item to cart. Please try again later.");

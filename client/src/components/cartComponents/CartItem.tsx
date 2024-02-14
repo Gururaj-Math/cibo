@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/cart.css";
-
 const CartItem = (props: {
+  id: string;
   imageUrl: string;
   name: string;
   description: string;
