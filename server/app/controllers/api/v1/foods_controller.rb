@@ -1,5 +1,5 @@
 class Api::V1::FoodsController < ApplicationController
-  before_action :set_food, only: [:show, :update, :destroy]
+  before_action :set_food, only: [:show, :update, :destroy, :remove_from_cart]
 
   def index
     @foods = Food.all
@@ -53,6 +53,27 @@ class Api::V1::FoodsController < ApplicationController
         else
           render json: user.errors, status: :unprocessable_entity
         end
+      end
+    else
+      render json: { error: 'User not specified' }, status: :unprocessable_entity
+    end
+  end
+
+  def remove_from_cart
+    @food = Food.find(params[:id])
+
+    # Check if user is present
+    if params[:user_id].present?
+      user = User.find(params[:user_id])
+      if user.cart.include?(@food.id)
+        user.cart.delete(@food.id)
+        if user.save
+          render json: { message: 'Food removed from cart successfully' }
+        else
+          render json: user.errors, status: :unprocessable_entity
+        end
+      else
+        render json: { error: 'Food does not exist in cart' }, status: :unprocessable_entity
       end
     else
       render json: { error: 'User not specified' }, status: :unprocessable_entity

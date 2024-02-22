@@ -1,11 +1,16 @@
 import { useState } from "react";
 import "../../styles/cart.css";
+import axios from "axios";
+import API_URI from "../../constant";
+import { message } from "antd";
 const CartItem = (props: {
   id: string;
   imageUrl: string;
   name: string;
   description: string;
   price: number;
+  currentUserId:string;
+  fetchCartItems: () => Promise<void>;
 }) => {
   const [quantity, setQuantity] = useState(1);
 
@@ -19,6 +24,21 @@ const CartItem = (props: {
     }
   };
 
+  const handleRemoveItem = async () => {
+    try {
+      console.log(props.currentUserId)
+      const response = await axios.delete(`${API_URI}/foods/${props.id}/remove_from_cart`, {
+        data: { user_id: props.currentUserId },
+      });
+      props.fetchCartItems();
+      message.success("Item removed from cart successfully!");
+      console.log("Item removed successfully", response.data);
+    } catch (error) {
+      message.error("Error removing item from cart");
+      console.error("Error removing item from cart:", error);
+    }
+  };
+  
   return (
     <div className="item">
       <div className="left-details">
@@ -39,7 +59,7 @@ const CartItem = (props: {
             +
           </button>
         </div>
-        <button className="action-btn">Remove</button>
+        <button className="action-btn" onClick={handleRemoveItem}>Remove</button>
         <button className="action-btn">Add To Favorite</button>
       </div>
     </div>

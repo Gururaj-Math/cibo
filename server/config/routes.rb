@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :foods do
         member do
           post 'add_to_cart'
+          delete 'remove_from_cart' 
           get 'get_food_details' 
         end
       end
