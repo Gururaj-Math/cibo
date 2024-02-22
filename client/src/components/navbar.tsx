@@ -41,7 +41,7 @@ function Navbar() {
       <div className="item-list">
         <Link to="/">Home</Link>
         <Link to="/orderNow">Order Now</Link>
-        <Link to="/about">About us</Link>
+        <Link to="/favorites">Favorites</Link>
         <Link to="/contact">Contact us</Link>
       </div>
       <div className="user-cart">

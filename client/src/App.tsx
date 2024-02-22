@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Home from "./pages/home";
-import About from "./pages/about";
+
 import Contact from "./pages/contact";
 import OrderPage from "./pages/OrderPage";
 import Footer from "./components/footer";
@@ -17,6 +17,7 @@ import Cart from "./pages/cart";
 import authLayout from "./pages/auth/authLayout.tsx";
 import privateRoute from "./components/PrivateRoute.tsx";
 import MyAccount from "./pages/myAccount";
+import Favorites from "./pages/favorites.tsx";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function AppRoutes() {
         </Route>
         <Route Component={privateRoute}>
           <Route path="/" Component={Home} />
-          <Route path="/about" Component={About} />
+          <Route path="/favorites" Component={Favorites} />
           <Route path="/orderNow" Component={OrderPage} />
           <Route path="/contact" Component={Contact} />
           <Route path="/cart" Component={Cart} />

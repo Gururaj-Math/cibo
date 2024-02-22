@@ -69,8 +69,9 @@ const Cart: React.FC = () => {
                 imageUrl={item.image}
                 description={item.description}
                 price={item.price}
-                currentUserId={currentUser.data._id.$oid}
+                currentUser={currentUser}
                 fetchCartItems={fetchCartItems}
+                
               />
             ))
           ) : (
