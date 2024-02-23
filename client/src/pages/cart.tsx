@@ -84,6 +84,7 @@ const Cart: React.FC = () => {
             shippingFee={cartItems.length > 0 ? 10 : 0} 
             tax={0.15 * subtotal}
             orderTotal={orderTotal}
+            cartItems={cartItems}
           />
         </div>
       </div>

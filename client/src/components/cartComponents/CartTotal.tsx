@@ -1,11 +1,23 @@
 import "../../styles/cart.css";
-
+import axios from "axios"
+import Spinner from "../ui/Spinner";
+import {useState} from "react";
 const CartTotal = (props: {
   subtotal: number;
   shippingFee: number;
   tax: number;
   orderTotal: number;
+  cartItems: object;
 }) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const handlePayment = async () => {
+        setIsLoading(true)
+        const response = await axios.post( `http://127.0.0.1:3000/payments`,
+            {items: props.cartItems}
+        )
+        window.location.href = response.data.url;
+        setIsLoading(false)
+    }
   return (
     <div className="total-container">
       <div className="price-details">
@@ -27,8 +39,8 @@ const CartTotal = (props: {
       <p className="terms">
         By placing this order you agree to <span>Cibo's Terms</span>
       </p>
-      <button className="proceed-btn" role="button">
-        Proceed To Checkout
+      <button className="proceed-btn" role="button" onClick={handlePayment}>
+        Proceed To Checkout {isLoading ? <Spinner /> : ""}
       </button>
     </div>
   );

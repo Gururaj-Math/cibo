@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       post '/user/login', to: 'users#login'
       put '/user/update', to: 'users#updateUser'
       get '/user/cart', to: 'users#get_cart'
-      post '/user/add_to_favorites', to: 'users#add_to_favorites' 
+      post '/user/add_to_favorites', to: 'users#add_to_favorites'
 
       resources :foods do
         member do
@@ -19,4 +19,5 @@ Rails.application.routes.draw do
       resources :sellers
     end
   end
+  post '/payments', to: 'payments#create'
 end
