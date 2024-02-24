@@ -10,6 +10,7 @@ class Food
   field :rating, type: Array, default: []
   field :offer, type: String
   field :featured, type: Boolean
+  field :archived, type: Boolean
 
   belongs_to :seller, class_name: 'Seller', foreign_key: 'seller_id'
   belongs_to :category, class_name: 'Category', foreign_key: 'category_id'

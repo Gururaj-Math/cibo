@@ -87,7 +87,7 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def food_params
-    permitted_params = params.require(:food).permit(:name, :price, :image, :description, :offer, rating: [])
+    permitted_params = params.require(:food).permit(:name, :price, :image, :description, :offer, :category ,rating: [])
 
     # Check if category_id exists in Category model
     if params[:food][:category] && params[:food][:category][:id]

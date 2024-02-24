@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import API_URI from "../constant";
 import { message } from "antd";
+import { CiLocationOn } from "react-icons/ci";
 import "../styles/leftDrawer.css";
 
 interface RootState {
@@ -26,6 +27,13 @@ const LeftDrawer: React.FC = () => {
     name: currentUser?.data.name || "",
     phone: currentUser?.data.phone || "",
     email: currentUser?.data.email || "",
+    currentLocation: currentUser?.data.currentLocation || "",
+  });
+  const [liveLocation, setLiveLocation] = useState({
+    village: "",
+    county: "",
+    state_district: "",
+    postcode: "",
   });
 
   const showDrawer = () => {
@@ -40,7 +48,7 @@ const LeftDrawer: React.FC = () => {
     const { name, value } = e.target;
     setUserData((prevUser) => ({
       ...prevUser,
-      [name]: value,
+      [name]: value || "",
     }));
   };
 
@@ -61,39 +69,67 @@ const LeftDrawer: React.FC = () => {
     }
   };
 
+  const handleCurrentLocation = async () => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+      try {
+        const response = await axios.get(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+        const { village, county, state_district, postcode } = response.data.address;
+        setUserData((prevUser) => ({
+          ...prevUser,
+          currentLocation: `${village}, ${county}, ${state_district} ${postcode}`,
+        }));
+        console.log(response.data.address);
+      } catch (error) {
+        console.error('Error fetching location:', error);
+      }
+    });
+  };
+
   return (
-    <>
-      {contextHolder}
-      <Button type="primary" onClick={showDrawer}>
-        Edit Profile
-      </Button>
-      <Drawer title="Edit Profile" onClose={onClose} open={open}>
-        <form onSubmit={handleSubmit} className="updateForm">
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            value={userData.name}
-            onChange={handleInputChange}
-          />
-          <label>Phone Number</label>
-          <input
-            type="text"
-            name="phone"
-            value={userData.phone}
-            onChange={handleInputChange}
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleInputChange}
-          />
-          <button type="submit">Update</button>
-        </form>
-      </Drawer>
-    </>
+      <>
+        {contextHolder}
+        <Button type="primary" onClick={showDrawer}>
+          Edit Profile
+        </Button>
+        <Drawer title="Edit Profile" onClose={onClose} open={open}>
+          <form onSubmit={handleSubmit} className="updateForm">
+            <label>Name</label>
+            <input
+                type="text"
+                name="name"
+                value={userData.name}
+                onChange={handleInputChange}
+            />
+            <label>Phone Number</label>
+            <input
+                type="text"
+                name="phone"
+                value={userData.phone}
+                onChange={handleInputChange}
+            />
+            <label>Email</label>
+            <input
+                type="email"
+                name="email"
+                value={userData.email}
+                onChange={handleInputChange}
+            />
+
+            <label>Current Location</label>
+            <input
+                type="text"
+                name="currentLocation"
+                value={userData.currentLocation}
+                onChange={handleInputChange}
+            />
+            <p onClick={handleCurrentLocation}><CiLocationOn /> Or Get Current Location</p>
+            <button type="submit">Update</button>
+          </form>
+        </Drawer>
+      </>
   );
 };
 
