@@ -28,6 +28,7 @@ const Index = () => {
         };
         getCategories();
     }, []);
+    
     return (
         <div className="mx-7">
             <div className="flex justify-between items-center mt-4 pb-4 border-b">
