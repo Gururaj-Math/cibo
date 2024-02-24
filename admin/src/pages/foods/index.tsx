@@ -1,3 +1,4 @@
+
 import {useState, useEffect} from 'react';
 import Heading from "../../components/SectionHeading.tsx";
 import {Link} from "react-router-dom";
@@ -6,34 +7,37 @@ import API_BASE_URL from "../../constant.ts";
 import Table from "../../components/Table.tsx";
 import ApiCalls from "../../components/ApiCalls.tsx";
 import DateFormatter from "../../utils/dateFormatter.ts";
-
 const Index = () => {
-    const tableHeaders = ['Name', 'Date'];
-    const objectKey = ['name']
+    const tableHeaders = ['Name', 'Featured', 'Stock' ,'Price', 'Category', 'Date'];
+    const objectKey = ['name', 'featured', 'stock', 'price', 'category']
     const [tableData, setTableData] = useState<any[]>([]);
 
     useEffect(() => {
-        const getCategories = async () => {
+        const getFoods = async () => {
             try{
-                const categories = await axios.get(`${API_BASE_URL}/api/v1/categories`)
-                const fetchedTableData = categories.data.map(item => ({
+                const foods = await axios.get(`${API_BASE_URL}/api/v1/foods`)
+                const fetchedTableData = foods.data.map(item => ({
                     id: item._id,
                     name: item.name,
+                    featured: item.featured,
+                    stock: item.stock,
+                    price: item.price,
+                    category: item.category,
                     date: DateFormatter(item.created_at)
                 }))
                 setTableData(fetchedTableData)
-            }catch (error){
+            } catch (error){
                 console.log(error)
             }
         };
-        getCategories();
+        getFoods();
     }, []);
     return (
-        <div className="mx-7">
+        <div className={"mx-7"}>
             <div className="flex justify-between items-center mt-4 pb-4 border-b">
                 <Heading
-                    title="Categories"
-                    subtitle="Manage Categories for your restaurant"
+                    title="Food Items"
+                    subtitle="Manage Food Items for your restaurant"
                 />
                 <div>
                     <Link to="/categories/create">
@@ -54,11 +58,11 @@ const Index = () => {
                 objectKey={objectKey}
             />
             <ApiCalls
-                category={"Categories"}
-                get={`${API_BASE_URL}/api/v1/categories`}
-                post={`${API_BASE_URL}/api/v1/categories`}
-                put={`${API_BASE_URL}/api/v1/categories/{id}`}
-                remove={`${API_BASE_URL}/api/v1/categories/{id}`}
+                category={"Foods"}
+                get={`${API_BASE_URL}/api/v1/foods`}
+                post={`${API_BASE_URL}/api/v1/foods`}
+                put={`${API_BASE_URL}/api/v1/foods/{id}`}
+                remove={`${API_BASE_URL}/api/v1/foods/{id}`}
             />
         </div>
     );
