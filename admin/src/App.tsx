@@ -2,6 +2,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import categories from "./pages/categories/index.tsx";
 import foods from "./pages/foods/index.tsx";
+import createFood from "./pages/foods/create.tsx";
 import {
     BrowserRouter as Router,
     Routes,
@@ -29,6 +30,7 @@ function AppRoutes() {
             <Routes>
                     <Route path="/categories" Component={categories} />
                     <Route path="/foods" Component={foods} />
+                    <Route path="/foods/create" Component={createFood} />
             </Routes>
             {/*{!isLoginPage && !isRegisterPage && !myAccountPage && <Footer />}*/}
         </>

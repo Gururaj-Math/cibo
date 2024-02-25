@@ -40,7 +40,7 @@ const Index = () => {
                     subtitle="Manage Food Items for your restaurant"
                 />
                 <div>
-                    <Link to="/categories/create">
+                    <Link to="/foods/create">
                         <button>Add</button>
                     </Link>
                 </div>
