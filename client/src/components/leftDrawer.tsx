@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Button, Drawer } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import API_URI from "../constant";
 import { message } from "antd";
 import { CiLocationOn } from "react-icons/ci";
 import "../styles/leftDrawer.css";
+import { updateCurrentUser } from "../redux/user/userSlice";
 
 interface RootState {
   user: {
@@ -14,6 +15,7 @@ interface RootState {
         name: string;
         phone: string;
         email: string;
+        currentLocation: string;
       };
     } | null;
   };
@@ -29,6 +31,7 @@ const LeftDrawer: React.FC = () => {
     email: currentUser?.data.email || "",
     currentLocation: currentUser?.data.currentLocation || "",
   });
+  const dispatch = useDispatch();
   const [liveLocation, setLiveLocation] = useState({
     village: "",
     county: "",
@@ -61,6 +64,18 @@ const LeftDrawer: React.FC = () => {
         content: "Information Updated Successfully",
       });
       setOpen(false);
+      const updatedCurrentUser: any = {
+        ...currentUser,
+        data: {
+          ...currentUser.data,
+          name: userData.name,
+          phone: userData.phone,
+          email: userData.email,
+          currentLocation: userData.currentLocation,
+        },
+      };
+      console.log(updatedCurrentUser);
+      dispatch(updateCurrentUser(updatedCurrentUser));
     } catch (error) {
       messageApi.open({
         type: "error",
@@ -74,62 +89,65 @@ const LeftDrawer: React.FC = () => {
       const { latitude, longitude } = position.coords;
       try {
         const response = await axios.get(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
         );
-        const { village, county, state_district, postcode } = response.data.address;
+        const { village, county, state_district, postcode } =
+          response.data.address;
         setUserData((prevUser) => ({
           ...prevUser,
           currentLocation: `${village}, ${county}, ${state_district} ${postcode}`,
         }));
         console.log(response.data.address);
       } catch (error) {
-        console.error('Error fetching location:', error);
+        console.error("Error fetching location:", error);
       }
     });
   };
 
   return (
-      <>
-        {contextHolder}
-        <Button type="primary" onClick={showDrawer}>
-          Edit Profile
-        </Button>
-        <Drawer title="Edit Profile" onClose={onClose} open={open}>
-          <form onSubmit={handleSubmit} className="updateForm">
-            <label>Name</label>
-            <input
-                type="text"
-                name="name"
-                value={userData.name}
-                onChange={handleInputChange}
-            />
-            <label>Phone Number</label>
-            <input
-                type="text"
-                name="phone"
-                value={userData.phone}
-                onChange={handleInputChange}
-            />
-            <label>Email</label>
-            <input
-                type="email"
-                name="email"
-                value={userData.email}
-                onChange={handleInputChange}
-            />
+    <>
+      {contextHolder}
+      <Button type="primary" onClick={showDrawer}>
+        Edit Profile
+      </Button>
+      <Drawer title="Edit Profile" onClose={onClose} open={open}>
+        <form onSubmit={handleSubmit} className="updateForm">
+          <label>Name</label>
+          <input
+            type="text"
+            name="name"
+            value={userData.name}
+            onChange={handleInputChange}
+          />
+          <label>Phone Number</label>
+          <input
+            type="text"
+            name="phone"
+            value={userData.phone}
+            onChange={handleInputChange}
+          />
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={userData.email}
+            onChange={handleInputChange}
+          />
 
-            <label>Current Location</label>
-            <input
-                type="text"
-                name="currentLocation"
-                value={userData.currentLocation}
-                onChange={handleInputChange}
-            />
-            <p onClick={handleCurrentLocation}><CiLocationOn /> Or Get Current Location</p>
-            <button type="submit">Update</button>
-          </form>
-        </Drawer>
-      </>
+          <label>Current Location</label>
+          <input
+            type="text"
+            name="currentLocation"
+            value={userData.currentLocation}
+            onChange={handleInputChange}
+          />
+          <p onClick={handleCurrentLocation}>
+            <CiLocationOn /> Or Get Current Location
+          </p>
+          <button type="submit">Update</button>
+        </form>
+      </Drawer>
+    </>
   );
 };
 

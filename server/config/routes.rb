@@ -15,9 +15,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :categories
+      resources :categories  
+
       resources :sellers
     end
   end
+
   post '/payments', to: 'payments#create'
 end

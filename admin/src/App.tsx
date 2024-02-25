@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
+import create from "./pages/categories/create.tsx";
 import categories from "./pages/categories/index.tsx";
 import foods from "./pages/foods/index.tsx";
 import createFood from "./pages/foods/create.tsx";
@@ -29,6 +30,8 @@ function AppRoutes() {
             {!isLoginPage && !isRegisterPage && <Navbar />}
             <Routes>
                     <Route path="/categories" Component={categories} />
+                    <Route path="/categories/create" Component={create}/>
+                    
                     <Route path="/foods" Component={foods} />
                     <Route path="/foods/create" Component={createFood} />
             </Routes>
