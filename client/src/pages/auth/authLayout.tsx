@@ -1,17 +1,24 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import React from "react";
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
-interface RootState {
-  user: {
-    currentUser: string | null;
-  };
+export default function AuthLayout() {
+   const { currentUser } = useSelector((state: any) => state.user);
+
+   const userID = currentUser && currentUser.data && currentUser.data.user ? currentUser.data.user._id : null;
+
+   const isAuthenticated = !!userID;
+
+   return (
+      <>
+         {isAuthenticated ? (
+            <Navigate to="/" />
+         ) : (
+            <div>
+               <section>
+                  <Outlet />
+               </section>
+            </div>
+         )}
+      </>
+   );
 }
-
-const AuthLayout: React.FC = () => {
-  const { currentUser } = useSelector((state: RootState) => state.user);
-
-  return <div>{currentUser ? <Navigate to="/" /> : <Outlet />}</div>;
-};
-
-export default AuthLayout;

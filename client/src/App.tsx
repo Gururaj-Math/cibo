@@ -34,8 +34,7 @@ function AppRoutes() {
   const myAccountPage = location.pathname === "/my-account";
 
   return (
-    <>
-      {!isLoginPage && !isRegisterPage && <Navbar />}
+
       <Routes>
         <Route Component={authLayout}>
           <Route path="/login" Component={Login} />
@@ -50,8 +49,8 @@ function AppRoutes() {
           <Route path="/my-account" Component={MyAccount} />
         </Route>
       </Routes>
-      {!isLoginPage && !isRegisterPage && !myAccountPage && <Footer />}
-    </>
+      
+
   );
 }
 

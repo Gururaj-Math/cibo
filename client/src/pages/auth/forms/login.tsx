@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { Form, Input, Button } from "antd";
 import "../../../styles/login.css";
 import loginSvg from "../../../assets/login2.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -25,6 +25,7 @@ const Login: React.FC = () => {
     email: "",
     password_digest: "",
   });
+  const navigate = useNavigate()
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -40,6 +41,7 @@ const Login: React.FC = () => {
       const response = await axios.post(`${API_URI}/user/login`, formData);
       dispatch(logInSuccess(response.data));
       setCookies("access_token", response.data.accessToken);
+      navigate("/")
       console.log(response);
     } catch (error: any) {
       console.log(error);
