@@ -13,7 +13,7 @@ function Favorites() {
       try {
         const responseArray = await Promise.all(
           currentUser.data.favorites.map(async (foodId: string) => {
-            const response = await axios.get(`${API_URI}/foods/${foodId}/get_food_details`);
+            const response = await axios.get(`${API_URI}/foods/find_by_id/${foodId}`);
             return response.data;
           })
         );
