@@ -51,6 +51,7 @@ const CartItem = (props: {
         email: props.currentUser.data.email,
         food_id: props.id,
       });
+      
       const updatedCurrentUser = {
         ...props.currentUser,
         data: {
@@ -59,7 +60,7 @@ const CartItem = (props: {
         },
       };
       dispatch(updateCurrentUser(updatedCurrentUser));
-
+  
       message.success("Item added to favorites successfully!");
       console.log("Item added to favorites successfully", response.data);
     } catch (error) {
@@ -67,6 +68,7 @@ const CartItem = (props: {
       console.error("Error adding item to favorites:", error);
     }
   };
+  
 
   return (
     <div className="item">

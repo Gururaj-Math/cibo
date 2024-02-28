@@ -39,7 +39,7 @@ class Api::V1::FoodsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'Food not found' }, status: :not_found
   end
-
+  
   private
 
   def set_food

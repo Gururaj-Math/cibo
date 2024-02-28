@@ -8,15 +8,13 @@ Rails.application.routes.draw do
       post '/user/add_to_cart', to: 'users#add_to_cart'
       get '/user/cart_details', to: 'users#get_cart_details' 
       delete '/user/remove_from_cart', to: 'users#remove_from_cart'
-
-      resources :foods do
-        member do
-          get 'get_food_details' 
-        end
-      end
+      post '/user/add_to_favorites', to: 'users#add_to_favorites'
 
       resources :categories  
       resources :sellers
+      resources :foods do
+        get 'find_by_id/:id', action: :find_by_id, on: :collection
+      end
     end
   end
 
