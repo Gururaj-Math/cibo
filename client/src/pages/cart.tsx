@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CartHeader from "../components/cartComponents/CartHeader";
 import CartItem from "../components/cartComponents/CartItem";
@@ -8,7 +8,7 @@ import API_URI from "../constant";
 import { Skeleton, Empty } from "antd";
 
 interface FoodItem {
-  _id: string;
+  id: string;
   image: string;
   name: string;
   description: string;
@@ -31,17 +31,14 @@ const Cart: React.FC = () => {
   const fetchCartItems = async () => {
     try {
       setLoading(true);
-      const cartResponse = await axios.get(`${API_URI}/user/cart`);
-      const foodIds: string[] = cartResponse.data;
-      const foodDetailsPromises = foodIds.map((id: string) =>
-        axios.get(`${API_URI}/foods/${id}/get_food_details`)
-      );
-      const foodDetailsResponses = await Promise.all(foodDetailsPromises);
-      const cartItemsData: FoodItem[] = foodDetailsResponses.map(
-        (response: any) => response.data
-      );
-      setCartItems(cartItemsData);
-      calculateTotal(cartItemsData);
+      const response = await axios.get(`${API_URI}/user/cart_details`, {
+        params: {
+          email: currentUser.data.email 
+        }
+      });
+      console.log(response.data.cart)
+      setCartItems(response.data.cart);
+      calculateTotal(response.data.cart);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     } finally {
@@ -67,7 +64,7 @@ const Cart: React.FC = () => {
             cartItems.map((item: FoodItem, index) => (
               <CartItem
                 key={index}
-                id={item._id}
+                id={item.id.$oid}
                 name={item.name}
                 imageUrl={item.image}
                 description={item.description}

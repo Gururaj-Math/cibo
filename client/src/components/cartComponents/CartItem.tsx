@@ -12,11 +12,11 @@ const CartItem = (props: {
   name: string;
   description: string;
   price: number;
-  currentUser:any;
+  currentUser: any;
   fetchCartItems: () => Promise<void>;
 }) => {
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -30,12 +30,15 @@ const CartItem = (props: {
 
   const handleRemoveItem = async () => {
     try {
-      const response = await axios.delete(`${API_URI}/foods/${props.id}/remove_from_cart`, {
-        data: { user_id: props.currentUser.data._id.$oid },
+      const response = await axios.delete(`${API_URI}/user/remove_from_cart`, {
+        data: {
+          email: props.currentUser.data.email,
+          food_id: props.id,
+        },
       });
-      props.fetchCartItems();
       message.success("Item removed from cart successfully!");
-      console.log("Item removed successfully", response.data);
+      console.log("Item removed from cart successfully", response.data);
+      props.fetchCartItems();
     } catch (error) {
       message.error("Error removing item from cart");
       console.error("Error removing item from cart:", error);
@@ -52,8 +55,8 @@ const CartItem = (props: {
         ...props.currentUser,
         data: {
           ...props.currentUser.data,
-          favorites: response.data.user.favorites 
-        }
+          favorites: response.data.user.favorites,
+        },
       };
       dispatch(updateCurrentUser(updatedCurrentUser));
 
@@ -64,9 +67,7 @@ const CartItem = (props: {
       console.error("Error adding item to favorites:", error);
     }
   };
-  
-  
-  
+
   return (
     <div className="item">
       <div className="left-details">
@@ -87,8 +88,12 @@ const CartItem = (props: {
             +
           </button>
         </div>
-        <button className="action-btn" onClick={handleRemoveItem}>Remove</button>
-        <button className="action-btn" onClick={handleAddToFavorites}>Add To Favorite</button>
+        <button className="action-btn" onClick={handleRemoveItem}>
+          Remove
+        </button>
+        <button className="action-btn" onClick={handleAddToFavorites}>
+          Add To Favorite
+        </button>
       </div>
     </div>
   );

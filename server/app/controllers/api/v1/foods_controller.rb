@@ -1,5 +1,5 @@
 class Api::V1::FoodsController < ApplicationController
-  before_action :set_food, only: [:show, :update, :destroy, :get_food_details]
+  before_action :set_food, only: [:show, :update, :destroy]
 
   def index
     @foods = Food.all

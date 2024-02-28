@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       post '/user/login', to: 'users#login'
       put '/user/update', to: 'users#updateUser'
       get '/user/cart', to: 'users#get_cart'
-      post '/user/add_to_cart', to: 'users#add_to_cart' 
+      post '/user/add_to_cart', to: 'users#add_to_cart'
+      get '/user/cart_details', to: 'users#get_cart_details' 
+      delete '/user/remove_from_cart', to: 'users#remove_from_cart'
 
       resources :foods do
         member do

@@ -43,6 +43,27 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def get_cart_details
+    @user = User.find_by(email: params[:email])
+
+    if @user
+      cart_items = @user.cart.map do |food_id|
+        food = Food.find_by(id: food_id)
+        {
+          id: food.id,
+          name: food.name,
+          price: food.price,
+          image: food.image,
+          description: food.description
+        }
+      end
+
+      render json: { user: @user, cart: cart_items }, status: :ok
+    else
+      render json: { message: 'User not found' }, status: :not_found
+    end
+  end
+
   def add_to_cart
     @user = User.find_by(email: params[:email])
     food_id = params[:food_id]
