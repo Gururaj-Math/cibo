@@ -8,8 +8,8 @@ import Table from "../../components/Table.tsx";
 import ApiCalls from "../../components/ApiCalls.tsx";
 import DateFormatter from "../../utils/dateFormatter.ts";
 const Index = () => {
-    const tableHeaders = ['Name', 'Featured', 'Stock' ,'Price', 'Category', 'Date'];
-    const objectKey = ['name', 'featured', 'stock', 'price', 'category']
+    const tableHeaders = ['Name', 'Featured', 'Archived' ,'Price', 'Category', 'Date'];
+    const objectKey = ['name', 'featured', 'archived', 'price', 'category']
     const [tableData, setTableData] = useState<any[]>([]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Index = () => {
                     id: item._id,
                     name: item.name,
                     featured: item.featured,
-                    stock: item.stock,
+                    archived: item.archived,
                     price: item.price,
                     category: item.category,
                     date: DateFormatter(item.created_at)

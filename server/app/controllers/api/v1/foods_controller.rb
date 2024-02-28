@@ -47,6 +47,6 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def food_params
-    params.require(:food).permit(:name, :price, :image, :description, :offer, :category, :rating => [])
+    params.require(:food).permit(:name, :price, :image, :description, :offer, :category, :featured, :archived ,:rating => [])
   end
 end

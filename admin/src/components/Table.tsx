@@ -74,19 +74,19 @@ const Table: React.FC<TableProps> = ({ type, headers, data, objectKey }) => {
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
-            <tr className="border-b" key={rowIndex}>
-              {objectKey.map((value, key) => (
-                <td key={key} className="p-2 text-sm">
-                  {row[value]}
+              <tr className="border-b" key={rowIndex}>
+                {objectKey.map((value, key) => (
+                    <td key={key} className="p-2 text-sm">
+                      {typeof row[value] === 'boolean' ? row[value].toString() : row[value]}
+                    </td>
+                ))}
+                <td className="p-2 text-sm">{row.date}</td>
+                <td className="cursor-pointer">
+                  <Dropdown overlay={() => menu(row)} trigger={["click"]}>
+                    <HiDotsHorizontal/>
+                  </Dropdown>
                 </td>
-              ))}
-              <td className="p-2 text-sm">{row.date}</td>
-              <td className="cursor-pointer">
-                <Dropdown overlay={() => menu(row)} trigger={["click"]}>
-                  <HiDotsHorizontal />
-                </Dropdown>
-              </td>
-            </tr>
+              </tr>
           ))}
         </tbody>
       </table>
