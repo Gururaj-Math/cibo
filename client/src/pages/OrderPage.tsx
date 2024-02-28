@@ -92,7 +92,7 @@ function OrderPage() {
       selectedCategory === "All"
         ? foodItems
         : foodItems.filter(
-            (item: any) => item.category_id.$oid === selectedCategory,
+            (item: any) => item.name === selectedCategory,
           ),
     );
   }, [selectedCategory, foodItems]);
@@ -140,7 +140,7 @@ function OrderPage() {
           >
             <option value="All">All Categories</option>
             {categories.map((category: any) => (
-              <option key={category.id.$oid} value={category.id.$oid}>
+              <option key={category.id.$oid} value={category.name}>
                 {category.name}
               </option>
             ))}
