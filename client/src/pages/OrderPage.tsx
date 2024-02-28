@@ -15,12 +15,13 @@ const FoodItem = (props: {
   rating: number[];
   offer: string;
   foodId: string;
-  userId: string;
+  userEmail: string;
 }) => {
   const handleAddToCart = async () => {
     try {
-      await axios.post(`${API_URI}/foods/${props.foodId}/add_to_cart`, {
-        user_id: props.userId,
+      await axios.post(`${API_URI}/user/add_to_cart`, {
+        food_id: props.foodId, 
+        email: props.userEmail
       });
       message.success("Item added to cart successfully!");
     } catch (error) {
@@ -28,6 +29,7 @@ const FoodItem = (props: {
       console.error("Error adding item to cart:", error);
     }
   };
+  
 
   const calculateAverageRating = (ratings: number[]): number => {
     if (ratings.length === 0) {
@@ -155,7 +157,7 @@ function OrderPage() {
               rating={item.rating}
               offer={item.offer}
               foodId={item.id.$oid}
-              userId={currentUser.data._id.$oid}
+              userEmail={currentUser.data.email}
             />
           ))}
         </div>

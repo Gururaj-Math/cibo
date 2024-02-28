@@ -43,20 +43,40 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def add_to_favorites
+  def add_to_cart
     @user = User.find_by(email: params[:email])
     food_id = params[:food_id]
 
     if @user && food_id.present?
-      if @user.favorites.include?(food_id)
-        render json: { error: 'Food already exists in favorites' }, status: :unprocessable_entity
+      if @user.cart.include?(food_id)
+        render json: { error: 'Food already exists in cart' }, status: :unprocessable_entity
       else
-        @user.favorites << food_id
+        @user.cart << food_id
         if @user.save
-          render json: { message: 'Food added to favorites successfully', user: @user }
+          render json: { message: 'Food added to cart successfully', user: @user }
         else
-          render json: { error: 'Failed to add food to favorites' }, status: :unprocessable_entity
+          render json: { error: 'Failed to add food to cart' }, status: :unprocessable_entity
         end
+      end
+    else
+      render json: { error: 'User not found or Food ID not provided' }, status: :unprocessable_entity
+    end
+  end
+
+  def remove_from_cart
+    @user = User.find_by(email: params[:email])
+    food_id = params[:food_id]
+
+    if @user && food_id.present?
+      if @user.cart.include?(food_id)
+        @user.cart.delete(food_id)
+        if @user.save
+          render json: { message: 'Food removed from cart successfully', user: @user }
+        else
+          render json: { error: 'Failed to remove food from cart' }, status: :unprocessable_entity
+        end
+      else
+        render json: { error: 'Food does not exist in cart' }, status: :unprocessable_entity
       end
     else
       render json: { error: 'User not found or Food ID not provided' }, status: :unprocessable_entity

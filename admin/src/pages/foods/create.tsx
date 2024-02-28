@@ -25,29 +25,30 @@ const Create: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, type, checked } = e.target;
-        const inputValue = type === 'checkbox' ? checked : value;
+        const inputValue = type === 'checkbox' ? checked : (name === 'price' ? parseFloat(value) : value);
         handleChange(name as keyof FormData, inputValue);
     };
+    
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formData);
-        // try {
-        //     await axios.post(
-        //         `${API_BASE_URL}/api/v1/foods`,
-        //         formData
-        //     );
-        //     messageApi.open({
-        //         type: 'success',
-        //         content: 'Food Created',
-        //     });
-        //     navigate("/foods");
-        // } catch (error) {
-        //     messageApi.open({
-        //         type: 'error',
-        //         content: 'Failed to create Food',
-        //     });
-        // }
+        console.log("data", formData);
+        try {
+            await axios.post(
+                `${API_BASE_URL}/api/v1/foods`,
+                formData
+            );
+            messageApi.open({
+                type: 'success',
+                content: 'Food Created',
+            });
+            navigate("/foods");
+        } catch (error) {
+            messageApi.open({
+                type: 'error',
+                content: 'Failed to create Food',
+            });
+        }
     };
 
     return (
@@ -77,7 +78,7 @@ const Create: React.FC = () => {
                 <div className={"flex flex-col gap-3"}>
                     <label>Price</label>
                     <input
-                        type="text"
+                        type="number"
                         name="price"
                         value={formData?.price || ""}
                         className={"border rounded p-2.5 w-[280px]"}

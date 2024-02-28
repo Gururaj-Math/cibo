@@ -22,36 +22,39 @@ const Cart: React.FC = () => {
   const [subtotal, setSubtotal] = useState<number>(0);
   const [orderTotal, setOrderTotal] = useState<number>(0);
 
-  const fetchCartItems = async () => {
-    try {
-      const response = await axios.get(
-        `${API_URI}/user/cart?email=${currentUser.data.email}`,
-      );
-      const cartItemIds = response.data.cart.map((item: any) => item.$oid);
-      const items = await Promise.all(
-        cartItemIds.map(async (id: string) => {
-          const res = await axios.get(
-            `${API_URI}/foods/${id}/get_food_details`,
-          );
-          return res.data;
-        }),
-      );
-      setCartItems(items);
-      const subtotal = items.reduce((acc, curr) => acc + curr.price, 0);
-      setSubtotal(subtotal);
-      setOrderTotal(subtotal + (cartItems.length > 0 ? 10 : 0) + 0.15 * subtotal);
-      setLoading(false);
-      console.log(currentUser.data);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
-    }
-  };
-
   useEffect(() => {
     if (currentUser.data.email) {
       fetchCartItems();
     }
   }, [currentUser.data.email]);
+
+  const fetchCartItems = async () => {
+    try {
+      setLoading(true);
+      const cartResponse = await axios.get(`${API_URI}/user/cart`);
+      const foodIds: string[] = cartResponse.data;
+      const foodDetailsPromises = foodIds.map((id: string) =>
+        axios.get(`${API_URI}/foods/${id}/get_food_details`)
+      );
+      const foodDetailsResponses = await Promise.all(foodDetailsPromises);
+      const cartItemsData: FoodItem[] = foodDetailsResponses.map(
+        (response: any) => response.data
+      );
+      setCartItems(cartItemsData);
+      calculateTotal(cartItemsData);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const calculateTotal = (items: FoodItem[]) => {
+    const subTotal = items.reduce((acc, curr) => acc + curr.price, 0);
+    setSubtotal(subTotal);
+    const orderTotal = subTotal + (items.length > 0 ? 10 : 0) + 0.15 * subTotal;
+    setOrderTotal(orderTotal);
+  };
 
   return (
     <>
@@ -61,17 +64,16 @@ const Cart: React.FC = () => {
           {loading ? (
             <Skeleton active paragraph={{ rows: 12 }} />
           ) : cartItems.length > 0 ? ( 
-            cartItems.map((item: any, index) => (
+            cartItems.map((item: FoodItem, index) => (
               <CartItem
                 key={index}
-                id={item._id.$oid}
+                id={item._id}
                 name={item.name}
                 imageUrl={item.image}
                 description={item.description}
                 price={item.price}
                 currentUser={currentUser}
                 fetchCartItems={fetchCartItems}
-                
               />
             ))
           ) : (

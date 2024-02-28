@@ -1,5 +1,5 @@
 class Api::V1::FoodsController < ApplicationController
-  before_action :set_food, only: [:show, :update, :destroy, :remove_from_cart]
+  before_action :set_food, only: [:show, :update, :destroy, :get_food_details]
 
   def index
     @foods = Food.all
@@ -33,51 +33,11 @@ class Api::V1::FoodsController < ApplicationController
     head :no_content
   end
 
-  def get_food_details
+  def find_by_id
     @food = Food.find(params[:id])
     render json: @food
-  end
-
-  def add_to_cart
-    @food = Food.find(params[:id])
-
-    # Check if user is present
-    if params[:user_id].present?
-      user = User.find(params[:user_id])
-      if user.cart.include?(@food.id)
-        render json: { error: 'Food already exists in cart' }, status: :unprocessable_entity
-      else
-        user.cart << @food.id
-        if user.save
-          render json: { message: 'Food added to cart successfully' }
-        else
-          render json: user.errors, status: :unprocessable_entity
-        end
-      end
-    else
-      render json: { error: 'User not specified' }, status: :unprocessable_entity
-    end
-  end
-
-  def remove_from_cart
-    @food = Food.find(params[:id])
-
-    # Check if user is present
-    if params[:user_id].present?
-      user = User.find(params[:user_id])
-      if user.cart.include?(@food.id)
-        user.cart.delete(@food.id)
-        if user.save
-          render json: { message: 'Food removed from cart successfully' }
-        else
-          render json: user.errors, status: :unprocessable_entity
-        end
-      else
-        render json: { error: 'Food does not exist in cart' }, status: :unprocessable_entity
-      end
-    else
-      render json: { error: 'User not specified' }, status: :unprocessable_entity
-    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Food not found' }, status: :not_found
   end
 
   private
@@ -87,22 +47,6 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def food_params
-    permitted_params = params.require(:food).permit(:name, :price, :image, :description, :offer, :category ,rating: [])
-
-    # Check if category_id exists in Category model
-    if params[:food][:category] && params[:food][:category][:id]
-      category_id = params[:food][:category][:id]
-      category = Category.find_by(id: category_id)
-      permitted_params[:category_id] = category.id if category
-    end
-
-    # Check if seller_id exists in Seller model
-    if params[:food][:seller] && params[:food][:seller][:id]
-      seller_id = params[:food][:seller][:id]
-      seller = Seller.find_by(id: seller_id)
-      permitted_params[:seller_id] = seller.id if seller
-    end
-
-    permitted_params
+    params.require(:food).permit(:name, :price, :image, :description, :offer, :category, :rating => [])
   end
 end
