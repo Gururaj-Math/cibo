@@ -8,7 +8,10 @@ import UploadWidget from "../../components/UploadWidget.tsx";
 
 const Create: React.FC = () => {
     const [messageApi, contextHolder] = message.useMessage();
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        archived : false,
+        featured : false
+    });
     const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
 
@@ -98,7 +101,7 @@ const Create: React.FC = () => {
                         value={formData?.category || ""}
                         onChange={handleInputChange}
                     >
-                        <option disabled>Select Category</option>
+                        <option disabled value={""}>Select Category</option>
                         {categories.map((data, key) => (
                             <option key={key} value={data.name}>
                                 {data.name}
