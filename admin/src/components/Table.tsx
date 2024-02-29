@@ -50,7 +50,7 @@ const Table: React.FC<TableProps> = ({ type, headers, data, objectKey, onUpdate 
         onClick={() => handleUpdate(record.id)}
         icon={<EditOutlined />}
       >
-        <Link to={`/${type}/${record.id}/update`}>Update</Link>
+        <Link to={`/${type}/update/${record.id.$oid}`}>Update</Link>
       </Menu.Item>
       <Menu.Item
         key="delete"

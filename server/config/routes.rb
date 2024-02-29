@@ -10,7 +10,10 @@ Rails.application.routes.draw do
       delete '/user/remove_from_cart', to: 'users#remove_from_cart'
       post '/user/add_to_favorites', to: 'users#add_to_favorites'
 
-      resources :categories  
+      resources :categories do
+        patch 'update_name/:id', action: :update_name, on: :collection
+      end
+        
       resources :sellers
       resources :foods do
         get 'find_by_id/:id', action: :find_by_id, on: :collection
