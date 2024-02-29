@@ -32,6 +32,15 @@ class Api::V1::CategoriesController < ApplicationController
       @category.destroy
       head :no_content
     end
+
+    def update_name
+      @category = Category.find(params[:id])
+      if @category.update(name: params[:name])
+        render json: @category
+      else
+        render json: @category.errors, status: :unprocessable_entity
+      end
+    end
   
     private
   
