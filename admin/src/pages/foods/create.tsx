@@ -4,6 +4,7 @@ import axios from "axios";
 import Heading from "../../components/SectionHeading.tsx";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import UploadWidget from "../../components/UploadWidget.tsx";
 
 const Create: React.FC = () => {
     const [messageApi, contextHolder] = message.useMessage();
@@ -28,7 +29,10 @@ const Create: React.FC = () => {
         const inputValue = type === 'checkbox' ? checked : (name === 'price' ? parseFloat(value) : value);
         handleChange(name as keyof FormData, inputValue);
     };
-    
+
+    const handleImageUpload = (imageUrl: string) => {
+        handleChange("image", imageUrl);
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -150,6 +154,14 @@ const Create: React.FC = () => {
                         <span>This product will remove from the food page</span>
                     </div>
                 </div>
+                <UploadWidget onImageUpload={handleImageUpload}/>
+                {formData.image && (
+                    <img
+                        src={formData.image}
+                        alt="food image"
+                        className="w-72 h-60 object-cover"
+                    />
+                )}
                 <button
                     className={"w-[80px] h-[40px] bg-black text-white p-2 rounded"}
                 >
