@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   end
 
   post '/payments', to: 'payments#create'
+  get '/payments', to: 'payments#getPayments'
+  get '/payments/:id', to: 'payments#getPaymentById'
 end

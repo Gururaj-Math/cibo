@@ -26,12 +26,17 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def index
+  def getPayments
     begin
       payments = Stripe::PaymentIntent.list
       render json: { payments: payments }
     rescue Stripe::StripeError => e
       render json: { error: e.message }, status: :bad_request
     end
+  end
+
+  def getPaymentById
+    @payment = Stripe::PaymentIntent.retrieve(params[:id])
+    render json: { payments: @payment }
   end
 end
