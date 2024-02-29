@@ -12,20 +12,22 @@ const Index = () => {
     const objectKey = ['name']
     const [tableData, setTableData] = useState<any[]>([]);
 
+    const getCategories = async () => {
+        console.log("updated")
+        try{
+            const categories = await axios.get(`${API_BASE_URL}/api/v1/categories`)
+            const fetchedTableData = categories.data.map(item => ({
+                id: item._id,
+                name: item.name,
+                date: DateFormatter(item.created_at)
+            }))
+            setTableData(fetchedTableData)
+        }catch (error){
+            console.log(error)
+        }
+    };
+
     useEffect(() => {
-        const getCategories = async () => {
-            try{
-                const categories = await axios.get(`${API_BASE_URL}/api/v1/categories`)
-                const fetchedTableData = categories.data.map(item => ({
-                    id: item._id,
-                    name: item.name,
-                    date: DateFormatter(item.created_at)
-                }))
-                setTableData(fetchedTableData)
-            }catch (error){
-                console.log(error)
-            }
-        };
         getCategories();
     }, []);
     
@@ -53,6 +55,7 @@ const Index = () => {
                 headers={tableHeaders}
                 data={tableData}
                 objectKey={objectKey}
+                onUpdate={getCategories}
             />
             <ApiCalls
                 category={"Categories"}

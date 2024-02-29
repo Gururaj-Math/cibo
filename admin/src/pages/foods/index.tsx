@@ -12,26 +12,29 @@ const Index = () => {
     const objectKey = ['name', 'featured', 'archived', 'price', 'category']
     const [tableData, setTableData] = useState<any[]>([]);
 
+    const getFoods = async () => {
+        try{
+            const foods = await axios.get(`${API_BASE_URL}/api/v1/foods`)
+            const fetchedTableData = foods.data.map(item => ({
+                id: item._id,
+                name: item.name,
+                featured: item.featured,
+                archived: item.archived,
+                price: item.price,
+                category: item.category,
+                date: DateFormatter(item.created_at)
+            }))
+            setTableData(fetchedTableData)
+        } catch (error){
+            console.log(error)
+        }
+    };
+
     useEffect(() => {
-        const getFoods = async () => {
-            try{
-                const foods = await axios.get(`${API_BASE_URL}/api/v1/foods`)
-                const fetchedTableData = foods.data.map(item => ({
-                    id: item._id,
-                    name: item.name,
-                    featured: item.featured,
-                    archived: item.archived,
-                    price: item.price,
-                    category: item.category,
-                    date: DateFormatter(item.created_at)
-                }))
-                setTableData(fetchedTableData)
-            } catch (error){
-                console.log(error)
-            }
-        };
         getFoods();
     }, []);
+
+
     return (
         <div className={"mx-7"}>
             <div className="flex justify-between items-center mt-4 pb-4 border-b">
@@ -52,10 +55,11 @@ const Index = () => {
                 />
             </div>
             <Table
-                type="categories"
+                type="foods"
                 headers={tableHeaders}
                 data={tableData}
                 objectKey={objectKey}
+                onUpdate={getFoods}
             />
             <ApiCalls
                 category={"Foods"}

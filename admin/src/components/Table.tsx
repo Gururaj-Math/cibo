@@ -1,6 +1,6 @@
 import React from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { Menu, Dropdown, Modal } from "antd";
+import { Menu, Dropdown, Modal, message } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -14,26 +14,34 @@ interface TableProps {
   headers: string[];
   data: Record<string, object>[];
   objectKey: string[];
+  onUpdate: () => Promise<void>
 }
 
-const Table: React.FC<TableProps> = ({ type, headers, data, objectKey }) => {
+const Table: React.FC<TableProps> = ({ type, headers, data, objectKey, onUpdate }) => {
   const handleUpdate = (record: number) => {
     console.log("Update clicked for:", record);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     Modal.confirm({
       title: "Confirm Delete",
       icon: <ExclamationCircleOutlined />,
       content: "Are you sure you want to delete this record?",
-      onOk() {
-        axios.delete(`${API_BASE_URL}/api/v1/${type}/${id}`);
+      async onOk() {
+        try {
+          await axios.delete(`${API_BASE_URL}/api/v1/${type}/${id}`);
+          message.success("Food item deleted successfully");
+          onUpdate();
+        } catch (error) {
+          console.error("Error deleting food item:", error);
+        }
       },
       onCancel() {
         console.log("Delete canceled");
       },
     });
   };
+  
 
   const menu = (record: object) => (
     <Menu>
