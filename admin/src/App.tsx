@@ -11,6 +11,7 @@ import {
     useLocation,
 } from "react-router-dom";
 import UpdateCategory from "./pages/categories/update.tsx";
+import UpdateFood from "./pages/foods/update.tsx";
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function AppRoutes() {
                     <Route path="/categories/update/:id" Component={UpdateCategory}/>
                     <Route path="/foods" Component={foods} />
                     <Route path="/foods/create" Component={createFood} />
+                    <Route path="/foods/update/:id" Component={UpdateFood}/>
             </Routes>
             {/*{!isLoginPage && !isRegisterPage && !myAccountPage && <Footer />}*/}
         </>

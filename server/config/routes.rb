@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :sellers
       resources :foods do
         get 'find_by_id/:id', action: :find_by_id, on: :collection
+        put 'update_food/:id', action: :update, controller: 'foods' 
       end
     end
   end

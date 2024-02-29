@@ -39,6 +39,16 @@ class Api::V1::FoodsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'Food not found' }, status: :not_found
   end
+
+  def update_by_id
+    @food = Food.find(params[:id])
+
+    if @food.update(food_params)
+      render json: @food
+    else
+      render json: @food.errors, status: :unprocessable_entity
+    end
+  end
   
   private
 
