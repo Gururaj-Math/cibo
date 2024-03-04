@@ -47,7 +47,7 @@ const Cart: React.FC = () => {
   };
 
   const calculateTotal = (items: FoodItem[]) => {
-    const subTotal = items.reduce((acc, curr) => acc + curr.price, 0);
+    const subTotal = items.reduce((acc, curr) => acc + parseFloat(curr.price), 0);
     setSubtotal(subTotal);
     const orderTotal = subTotal + (items.length > 0 ? 10 : 0) + 0.15 * subTotal;
     setOrderTotal(orderTotal);
