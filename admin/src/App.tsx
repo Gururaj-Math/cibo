@@ -4,6 +4,7 @@ import create from "./pages/categories/create.tsx";
 import categories from "./pages/categories/index.tsx";
 import foods from "./pages/foods/index.tsx";
 import createFood from "./pages/foods/create.tsx";
+import overview from "./pages/overview/index.tsx";
 import {
     BrowserRouter as Router,
     Routes,
@@ -31,6 +32,7 @@ function AppRoutes() {
         <>
             {!isLoginPage && !isRegisterPage && <Navbar />}
             <Routes>
+                    <Route index Component={overview} />
                     <Route path="/categories" Component={categories} />
                     <Route path="/categories/create" Component={create}/>
                     <Route path="/categories/update/:id" Component={UpdateCategory}/>
