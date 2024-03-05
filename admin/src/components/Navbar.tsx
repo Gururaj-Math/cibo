@@ -8,6 +8,7 @@ const Navbar = () => {
                 <Link to="/categories">Categories</Link>
                 <Link to="/foods">Foods</Link>
                 <a href="https://dashboard.stripe.com/test/payments?status[0]=successful" target={"_blank"}>Orders</a>
+                <Link to="/feedbacks">Feedbacks</Link>
             </div>
             <p>Admin</p>
         </div>

@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import UpdateCategory from "./pages/categories/update.tsx";
 import UpdateFood from "./pages/foods/update.tsx";
+import feedback from "./pages/feedback/index.tsx";
 
 function App() {
     return (
@@ -39,6 +40,7 @@ function AppRoutes() {
                     <Route path="/foods" Component={foods} />
                     <Route path="/foods/create" Component={createFood} />
                     <Route path="/foods/update/:id" Component={UpdateFood}/>
+                    <Route path="/feedbacks" Component={feedback} />
             </Routes>
             {/*{!isLoginPage && !isRegisterPage && !myAccountPage && <Footer />}*/}
         </>
