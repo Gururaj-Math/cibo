@@ -42,7 +42,7 @@ function Navbar() {
         <Link to="/">Home</Link>
         <Link to="/orderNow">Order Now</Link>
         <Link to="/favorites">Favorites</Link>
-        <Link to="/contact">Contact us</Link>
+        <Link to="/contact">Feedback</Link>
       </div>
       <div className="user-cart">
         <Link to="/my-account">
