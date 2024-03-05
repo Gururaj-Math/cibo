@@ -13,7 +13,7 @@ class PaymentsController < ApplicationController
             },
             unit_amount: item[:price] * 100
             },
-            quantity: item[:quantity]
+            quantity: 1
           }
           end,
           success_url: "http://localhost:5173/",

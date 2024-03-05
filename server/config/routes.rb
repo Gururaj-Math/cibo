@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'feedback/index'
+  get 'feedback/create'
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       post '/user/register', to: 'users#register'
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
       delete '/user/remove_from_cart', to: 'users#remove_from_cart'
       post '/user/add_to_favorites', to: 'users#add_to_favorites'
 
+      get '/feedbacks', to: 'feedback#index'
+      post '/feedbacks', to: 'feedback#create'
       resources :categories do
         patch 'update_name/:id', action: :update_name, on: :collection
       end
