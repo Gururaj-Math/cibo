@@ -10,6 +10,7 @@ const Contact = () => {
   const onFinish = async (values: any) => {
     try {
       const res = await axios.post(`${API_URI}/feedbacks`, values);
+      await axios.post('https://formspree.io/f/mayrbnwk', values);
       message.success("Feedback submitted successfully");
       console.log('Received values:', res);
       form.resetFields();
