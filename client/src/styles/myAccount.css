@@ -3,6 +3,7 @@
   box-shadow: 0 5px 4px rgb(146 161 176 / 15%);
   margin: 60px;
   padding: 20px;
+  min-height: 50vh;
 }
 
 .accountDetails {

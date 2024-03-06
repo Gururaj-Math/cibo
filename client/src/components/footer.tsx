@@ -1,24 +1,25 @@
 import "boxicons";
-import "../styles/footer.css";
 import "boxicons/css/boxicons.min.css";
+import "../styles/footer.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <div className="footer-container">
       <div className="footer-content">
-        <h2>Services</h2>
+        <h2>Quick Links</h2>
         <ul>
-          <li>Express Delivery</li>
-          <li>24/7 Customer Support</li>
-          <li>Easy Returns</li>
-          <li>Track Your Order</li>
+          <li><Link to={'/orderNow'} style={{textDecoration: 'none', color: "black"}}>Order Now</Link></li>
+          <li><Link to={'/favorites'} style={{textDecoration: 'none', color: "black"}}>Go to Favorites</Link></li>
+          <li><Link to={'/contact'} style={{textDecoration: 'none', color: "black"}}>Let us know you feedback</Link></li>
         </ul>
       </div>
       <div className="footer-content">
         <h2>About Us</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Cibo is your ultimate destination for convenient and delicious food
+          delivery. We're committed to providing high-quality service and
+          ensuring customer satisfaction.
         </p>
       </div>
       <div className="footer-content">

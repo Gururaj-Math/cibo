@@ -1,5 +1,4 @@
 import "./App.css";
-import Navbar from "./components/navbar";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,7 +9,6 @@ import Home from "./pages/home";
 
 import Contact from "./pages/contact";
 import OrderPage from "./pages/OrderPage";
-import Footer from "./components/footer";
 import Login from "./pages/auth/forms/login.tsx";
 import Register from "./pages/auth/forms/register.tsx";
 import Cart from "./pages/cart";
@@ -18,6 +16,7 @@ import authLayout from "./pages/auth/authLayout.tsx";
 import privateRoute from "./components/PrivateRoute.tsx";
 import MyAccount from "./pages/myAccount";
 import Favorites from "./pages/favorites.tsx";
+import TermsAndConditions from "./pages/Terms.tsx";
 
 function App() {
   return (
@@ -29,9 +28,6 @@ function App() {
 
 function AppRoutes() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
-  const isRegisterPage = location.pathname === "/register";
-  const myAccountPage = location.pathname === "/my-account";
 
   return (
 
@@ -43,6 +39,7 @@ function AppRoutes() {
         <Route Component={privateRoute}>
           <Route path="/" Component={Home} />
           <Route path="/favorites" Component={Favorites} />
+          <Route path="/terms" Component={TermsAndConditions} />
           <Route path="/orderNow" Component={OrderPage} />
           <Route path="/contact" Component={Contact} />
           <Route path="/cart" Component={Cart} />

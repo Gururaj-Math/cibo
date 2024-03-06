@@ -2,6 +2,7 @@ import "../../styles/cart.css";
 import axios from "axios"
 import Spinner from "../ui/Spinner";
 import {useState} from "react";
+import { Link } from "react-router-dom";
 const CartTotal = (props: {
   subtotal: number;
   shippingFee: number;
@@ -37,7 +38,7 @@ const CartTotal = (props: {
         <p className="amount">₹{props.orderTotal}</p>
       </div>
       <p className="terms">
-        By placing this order you agree to <span>Cibo's Terms</span>
+        By placing this order you agree to <Link to={'/terms'}>Cibo's Terms</Link>
       </p>
       <button className="proceed-btn" role="button" onClick={handlePayment}>
         Proceed To Checkout {isLoading ? <Spinner /> : ""}

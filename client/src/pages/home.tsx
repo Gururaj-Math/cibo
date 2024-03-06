@@ -4,6 +4,7 @@ import trackDeliverySvg from "../assets/trackDelivery.svg";
 import orderSvg from "../assets/order.svg";
 import "../styles/home.css";
 import CustomButton from "../components/customButton";
+import { Link } from "react-router-dom";
 
 const BannerItem = (props: {
   title: string;
@@ -18,9 +19,10 @@ const BannerItem = (props: {
   return (
     <div className={`banner-content ${orderClass}`}>
       <div className="banner-details">
-        <h1>{props.title}</h1>
+      <h1>{props.title}</h1>
         <p>{props.description}</p>
-        <CustomButton text={props.buttonText} />
+        <Link to={'/orderNow'}><CustomButton text={props.buttonText} /></Link>
+        
       </div>
       <img src={props.imageSrc} alt={props.altText} className="banner-image" />
     </div>
@@ -49,8 +51,8 @@ function Home() {
     <div className="home-container">
       <div className="banner-container">
         <BannerItem
-          title="Order Products Faster Easier"
-          description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore illum dolores a nulla unde deserunt quis nesciunt odio ducimus magni!"
+          title="Fast and Reliable Delivery Service"
+          description="With our efficient delivery team, we ensure your packages reach you in time, every time. Experience hassle-free delivery with us."
           buttonText="Get Started"
           imageSrc={deliverBoySvg}
           altText="Deliver Boy"
@@ -58,45 +60,45 @@ function Home() {
         />
 
         <BannerItem
-          title="Find Out A Little More About Us"
-          description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, iusto."
-          buttonText="Get Started"
+          title="Discover Our Wide Range of Products"
+          description="Explore a vast selection of products from top brands. From electronics to fashion, we've got everything you need at your fingertips."
+          buttonText="Explore Now"
           imageSrc={courierSvg}
           altText="Courier"
           imageOnLeft={true}
         />
 
         <BannerItem
-          title="Your Safety Is Important"
-          description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, iusto."
-          buttonText="Get Started"
+          title="Your Safety Is Our Priority"
+          description="We prioritize the safety and well-being of our customers and employees. Rest assured, we adhere to strict safety protocols to ensure a secure shopping experience."
+          buttonText="Learn More"
           imageSrc={orderSvg}
           altText="Deliver Boy"
           imageOnLeft={false}
         />
       </div>
       <div className="services-container">
-        <h1>Some Services we offer</h1>
+        <h1>Services We Offer</h1>
         <div className="card-layout">
           <ServiceCard
-            title="Find your food"
+            title="Find Your Favorite Cuisine"
             imageSrc={deliverBoySvg}
-            description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, accusantium?"
+            description="Craving Italian or in the mood for some Asian fusion? Browse through a variety of cuisines and discover your next culinary delight."
           />
           <ServiceCard
-            title="Order your food"
+            title="Order with Ease"
             imageSrc={deliverBoySvg}
-            description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, accusantium?"
+            description="With our user-friendly platform, ordering your favorite meals is just a few clicks away. Say goodbye to long queues and enjoy seamless ordering."
           />
           <ServiceCard
-            title="food Received"
+            title="Track Your Delivery"
             imageSrc={deliverBoySvg}
-            description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, accusantium?"
+            description="Keep tabs on your delivery status in real-time. Track your package from the moment it leaves our facility until it reaches your doorstep."
           />
         </div>
         <BannerItem
-          title="Watch your delivery at any time"
-          description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, iusto."
+          title="Stay Informed with Live Updates"
+          description="Track your delivery's progress every step of the way. Receive instant notifications and stay informed about your order's status."
           buttonText="Learn More"
           imageSrc={trackDeliverySvg}
           altText="Courier"
