@@ -14,6 +14,9 @@ import {
 import UpdateCategory from "./pages/categories/update.tsx";
 import UpdateFood from "./pages/foods/update.tsx";
 import feedback from "./pages/feedback/index.tsx";
+import authLayout from "./pages/auth/authLayout.tsx";
+import Login from "./pages/auth/forms/login.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 
 function App() {
     return (
@@ -33,6 +36,10 @@ function AppRoutes() {
         <>
             {!isLoginPage && !isRegisterPage && <Navbar />}
             <Routes>
+                <Route Component={authLayout}>
+                    <Route path={"/login"} Component={Login} />
+                </Route>
+                <Route Component={PrivateRoute}>
                     <Route index Component={overview} />
                     <Route path="/categories" Component={categories} />
                     <Route path="/categories/create" Component={create}/>
@@ -41,6 +48,7 @@ function AppRoutes() {
                     <Route path="/foods/create" Component={createFood} />
                     <Route path="/foods/update/:id" Component={UpdateFood}/>
                     <Route path="/feedbacks" Component={feedback} />
+                </Route>
             </Routes>
             {/*{!isLoginPage && !isRegisterPage && !myAccountPage && <Footer />}*/}
         </>
