@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
       get '/feedbacks', to: 'feedback#index'
       post '/feedbacks', to: 'feedback#create'
+
+      post '/seller/register', to: 'seller#register'
+      post '/seller/login', to: 'seller#login'
+
       resources :categories do
         patch 'update_name/:id', action: :update_name, on: :collection
       end
