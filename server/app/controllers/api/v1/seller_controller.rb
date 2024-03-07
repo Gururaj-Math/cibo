@@ -1,46 +1,34 @@
 class Api::V1::SellerController < ApplicationController
-    before_action :set_seller, only: [:show, :update, :destroy]
-  
-    def index
-      @sellers = Seller.all
-      render json: @sellers
-    end
-  
-    def show
-      render json: @seller
-    end
-  
-    def create
+    def register
       @seller = Seller.new(seller_params)
-  
+
       if @seller.save
-        render json: @seller, status: :created
+        render json: { message: 'Seller registered successfully', data: @seller }, status: :created
       else
-        render json: @seller.errors, status: :unprocessable_entity
+        render json: { errors: @seller.errors.full_messages }, status: :unprocessable_entity
       end
     end
-  
-    def update
-      if @seller.update(seller_params)
-        render json: @seller
+
+    def login
+      @seller = Seller.find_by(username: params[:username])
+      if @seller
+        token = generate_token(@seller)
+        @seller.refreshToken = token
+        @seller.save
+        render json: { message: "login Successfully", data: @seller}
       else
-        render json: @seller.errors, status: :unprocessable_entity
+        render json: { error: 'Invalid username or password' }, status: :unauthorized
       end
-    end
-  
-    def destroy
-      @seller.destroy
-      head :no_content
     end
   
     private
   
-    def set_seller
-      @seller = Seller.find(params[:id])
-    end
-  
     def seller_params
-      params.require(:seller).permit(:name, :location)
+      params.require(:seller).permit(:username, :email, :password_digest)
+    end
+
+    def generate_token(seller)
+      JWT.encode({ seller_id: seller.id }, 'abcsdnjcsddfwqkm', 'HS256')
     end
   end
   
