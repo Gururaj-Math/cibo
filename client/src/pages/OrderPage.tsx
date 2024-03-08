@@ -74,6 +74,7 @@ function OrderPage() {
         setFoodItems(res.data);
         setFilteredFoodItems(res.data);
       });
+      console.log(foodItems)
     };
     fetchItems();
   }, []);
@@ -92,13 +93,14 @@ function OrderPage() {
       selectedCategory === "All"
         ? foodItems
         : foodItems.filter(
-            (item: any) => item.name === selectedCategory,
+            (item: any) => item.category === selectedCategory,
           ),
     );
   }, [selectedCategory, foodItems]);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
+    console.log(category)
   };
 
   return (
@@ -125,6 +127,7 @@ function OrderPage() {
                     height: "300px",
                     borderRadius: "25px",
                     padding: "10px",
+                    objectFit: "cover"
                   }}
                 />
               </div>
