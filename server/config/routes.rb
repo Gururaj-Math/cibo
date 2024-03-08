@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get '/user/cart_details', to: 'users#get_cart_details' 
       delete '/user/remove_from_cart', to: 'users#remove_from_cart'
       post '/user/add_to_favorites', to: 'users#add_to_favorites'
+      delete '/user/remove_from_favorites', to: 'users#remove_from_favorites'
 
       get '/feedbacks', to: 'feedback#index'
       post '/feedbacks', to: 'feedback#create'

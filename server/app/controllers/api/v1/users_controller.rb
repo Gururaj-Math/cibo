@@ -124,6 +124,26 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def remove_from_favorites
+    @user = User.find_by(email: params[:email])
+    food_id = params[:food_id]
+
+    if @user && food_id.present?
+      if @user.favorites.include?(food_id)
+        @user.favorites.delete(food_id)
+        if @user.save
+          render json: { message: 'Food removed from favorites successfully', user: @user }
+        else
+          render json: { error: 'Failed to remove food from favorites' }, status: :unprocessable_entity
+        end
+      else
+        render json: { error: 'Food does not exist in favorites' }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: 'User not found or Food ID not provided' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def user_params
